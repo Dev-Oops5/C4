@@ -1,6 +1,7 @@
 ﻿using Structurizr;
 using Structurizr.Api;
 using Structurizr.Core.Util;
+using System;
 using System.Linq;
 
 namespace fas_c4_model
@@ -155,98 +156,108 @@ namespace fas_c4_model
             //---------------------------//---------------------------//
 
             // Components Diagram - Session Bounded Context
-            Component sessionQueryController = sessionContext.AddComponent("Session Query Controller", "REST API endpoints de Session Details", "Spring Boot REST Controller");
-            Component sessionsCommandController = sessionContext.AddComponent("Sessions Command Controller", "REST API endpoints de Session", "Spring Boot REST Controller");
-            
-            Component sessionComandService = sessionContext.AddComponent("Session Command Service", "Provee métodos para Session, pertenece a la capa Application de DDD", "Spring Component");
-            Component sessionViewProjection = sessionContext.AddComponent("Session View Projection", "", "Spring Component");
-            Component sessionHistoryViewProjection = sessionContext.AddComponent("Session History View Projection", "", "Spring Component");
+            Component sessionFragment = sessionContext.AddComponent("Login Fragment", "Interfaz de loggeo", "");
+            Component registerFragment = sessionContext.AddComponent("Register Fragments", "Interfacz de registro en la app", "");
+            Component verificationFragment = sessionContext.AddComponent("Verification Fragments", "Interfaz para verificación de número de teléfono", "");
 
-            Component sessionViewRepository = sessionContext.AddComponent("Session View Repository", "Provee los métodos para la persistencia de datos de Session", "Spring Component");
-            Component sessionHistoryViewRepository = sessionContext.AddComponent("Session History View Repository", "Provee los métodos para la persistencia de datos de Session", "Spring Component");
+            Component sessionViewModelFragment = sessionContext.AddComponent("Session View Model Fragment", "Provee métodos para realiza el login", "");
+            Component registerViewModelFragment = sessionContext.AddComponent("Register View Model Fragment", "Provee métodos para registro de usuario", "");
+            Component verificationViewModelFragment = sessionContext.AddComponent("Verification View Model Fragment", "Provee métodos para verificación de teléfono", "");
 
-            Component domainLayer = sessionContext.AddComponent("Domain Layer", "Contiene las entidades Core del microservicio", "Spring Component");
+            Component sessionUserRepository = sessionContext.AddComponent("User Repository", "Provee los métodos para la persistencia de datos de Session", "");
+            Component sessionRepository = sessionContext.AddComponent("Session Repository", "Provee los métodos para la persistencia de datos de manera local", "Room Component");
+
+            Component sessionDomainLayer = sessionContext.AddComponent("Session Domain Layer", "Contiene las entidades Core del bounded context", "");
 
 
-            // Components Diagram - User Bounded Context
-           
-            
+            // Components Diagram - Profile Bounded Context
+            Component profileFragment = profileContext.AddComponent("Profile Fragments", "Interfaces del perfil del usuario", "");
+            Component settingsFragment = profileContext.AddComponent("Settings Fragments", "Interfaz de Settings del usuario", "");
+
+            Component profileViewModelFragment = profileContext.AddComponent("Profile View Model Fragment", "Provee métodos para manejo del perfil", "");
+            Component settingsViewModelFragment = profileContext.AddComponent("Settings View Model Fragment", "Provee métodos para manejo de ajustes", "");
+
+            Component settingsRepository = profileContext.AddComponent("Settings Repository", "Provee los métodos para la persistencia de datos de ajustes", "");
+            Component profileRepository = profileContext.AddComponent("Profile Repository", "Provee los métodos para la persistencia de datos del perfil de usuario", "");
+            Component membershipRepository = profileContext.AddComponent("Membership Repository", "Provee los métodos para la persistencia de datos de las membresías", "");
+
+            Component profileDomainLayer = profileContext.AddComponent("Profile Domain Layer", "Contiene las entidades Core del bounded context", "");
+
 
             // Components Diagram - Subscription Bounded Context
-            Component subscriptionCommandController = subscriptionContext.AddComponent("Subscription Command Controller", "REST API endpoints de Payment", "Spring Boot REST Controller");
-            Component subscriptionQueryController = subscriptionContext.AddComponent("Subscriptions Controller", "REST API endpoints de Subscription", "Spring Boot REST Controller");
+            Component membershipPurchasFragment = subscriptionContext.AddComponent("Membership Purchase Fragments", "Interfaces de membresías", "");
+            Component boxPurchaseFragment = subscriptionContext.AddComponent("Box Purchase Fragments", "Interfaz de compra de cajas", "");
 
-            Component subscriptionApplicationService = subscriptionContext.AddComponent("Subscription Application Service", "Provee métodos para Subscription, pertenece a la capa Application de DDD", "Spring Component");
-            Component subscriptionViewProjection = subscriptionContext.AddComponent("Subscription View Projection", "", "Spring Component");
-            Component subscriptionHistoryViewProjection = subscriptionContext.AddComponent("Subscription History View Projection", "", "Spring Component");
+            Component membershipPurchasViewModelFragment = subscriptionContext.AddComponent("Membership Purchase View Model Fragment", "Provee métodos para manejo de pagos de mebresía", "");
+            Component boxPurchaseViewModelFragment = subscriptionContext.AddComponent("\"Box Purchase View Model Fragment", "Provee métodos para manejo de compras de cajas", "");
 
-            Component subscriptionViewRepository = subscriptionContext.AddComponent("Subscription View Repository", "Provee los métodos para la persistencia de datos de Subscription", "Spring Component");
-            Component subscriptionHistoryViewRepository = subscriptionContext.AddComponent("Subscription History View Repository", "Provee los métodos para la persistencia de datos de Subscription", "Spring Component");
+            Component membershipPurchaseRepository = subscriptionContext.AddComponent("Membership Purchase Repository", "Provee los métodos para la persistencia de datos de pagos de membresía", "");
+            Component boxPurchaseRepository = subscriptionContext.AddComponent("Box Purchase Repository", "Provee los métodos para la persistencia de datos de compras de cajas", "");
 
-            // Components Diagram - External Tools Bounded Context
-            //Component externalToolController = externalToolsContext.AddComponent("External Tool Command Controller", "REST API ", "Spring Boot REST Controller");
-            //Component externalQueryController = externalToolsContext.AddComponent("External Tool Query Controller", "REST API ", "Spring Boot REST Controller");
+            Component subscriptionDomainLayer = subscriptionContext.AddComponent("Subscription Domain Layer", "Contiene las entidades Core del bounded context", "");
 
-            //Component externalApplicationService = externalToolsContext.AddComponent("External Tool Application Service", "", "Spring Component");
-            //Component externalToolViewProjection = externalToolsContext.AddComponent("External Tool View Projection", "", "Spring Component");
-            //Component externalToolHistoryViewProjection = externalToolsContext.AddComponent("External Tool History View Projection", "", "Spring Component");
 
-            //Component externalToolRespository = externalToolsContext.AddComponent("External Tool Repository", "", "Spring Component");
-            //Component externalToolViewRespository = externalToolsContext.AddComponent("External Tool View Repository", "", "Spring Component");
-            //Component externalToolHistoryViewRespository = externalToolsContext.AddComponent("External Tool History View Repository", "", "Spring Component");
+            // Components Diagram - Inventory Bounded Context
+            Component boxFragment = inventoryContext.AddComponent("Box Fragments", "Interfaces del las cajas", "");
+            Component sectionFragment = inventoryContext.AddComponent("Section Fragments", "Interfaz de las secciones", "");
+            Component itemFragment = inventoryContext.AddComponent("Item Fragments", "Interfaz de los items", "");
 
-            //// Components Diagram - Payment Bounded Context
-            //Component paymentCommandController = paymentContext.AddComponent("Payment Command Controller", "REST API ", "Spring Boot REST Controller");
-            
+            Component boxViewModelFragment = inventoryContext.AddComponent("Box View Model Fragment", "Provee métodos para manejo de las cajas", "");
+            Component sectionsViewModelFragment = inventoryContext.AddComponent("Section View Model Fragment", "Provee métodos para manejo de secciones", "");
+            Component itemViewModelFragment = inventoryContext.AddComponent("Item View Model Fragment", "Provee métodos para manejo de items", "");
 
-            //Component transactionCommandController = paymentContext.AddComponent("Transaction Command Controller", "REST API ", "Spring Boot REST Controller");
-           
+            Component homeBoxRepository = inventoryContext.AddComponent("Home Box Repository", "Provee los métodos para la persistencia de datos de cajas", "");
+            Component sharedBoxRepository = inventoryContext.AddComponent("Shared Box Repository", "Provee los métodos para la persistencia de datos cajas compartidas", "");
+            Component homeSectionRepository = inventoryContext.AddComponent("Home Section Repository", "Provee los métodos para la persistencia de datos de secciones", "");
+            Component homeItemRepository = inventoryContext.AddComponent("Home Item Repository", "Provee los métodos para la persistencia de datos de items", "");
+            Component cloudVisionViewModel = inventoryContext.AddComponent("Cloud Vision View Model", "Provee los métodos para la comunicación con Cloud Vision API", "");
 
-            //Component paymentApplicationService = paymentContext.AddComponent("Payment Application Service", "", "Spring Component");
-            //Component transactionApplicationService = paymentContext.AddComponent("Transaction Application Service", "", "Spring Component");
+            Component inventoryDomainLayer = inventoryContext.AddComponent("Inventory Domain Layer", "Contiene las entidades Core del bounded context", "");
 
-            //Component paypalFacade = paymentContext.AddComponent("Paypal Facade", "", "Spring Component");
 
-          
 
             // Tags
-            
 
-            sessionQueryController.AddTags("Controller");
+            sessionFragment.AddTags("Controller");
+            registerFragment.AddTags("Controller");
+            verificationFragment.AddTags("Controller");
+            sessionViewModelFragment.AddTags("Service");
+            registerViewModelFragment.AddTags("Service");
+            verificationViewModelFragment.AddTags("Service");
+            sessionUserRepository.AddTags("Repository");
+            sessionRepository.AddTags("Repository");
+            sessionDomainLayer.AddTags("Repository");
 
-            sessionsCommandController.AddTags("Controller");
-            sessionComandService.AddTags("Service");
-            sessionViewProjection.AddTags("Service");
-            sessionHistoryViewProjection.AddTags("Service");
-            sessionViewRepository.AddTags("Repository");
-            sessionHistoryViewRepository.AddTags("Repository");
-            domainLayer.AddTags("Repository");
+            profileFragment.AddTags("Controller");
+            settingsFragment.AddTags("Controller");
+            profileViewModelFragment.AddTags("Service");
+            settingsViewModelFragment.AddTags("Service");
+            settingsRepository.AddTags("Repository");
+            profileRepository.AddTags("Repository");
+            membershipRepository.AddTags("Repository");
+            profileDomainLayer.AddTags("Repository");
 
-            subscriptionCommandController.AddTags("Controller");
-            subscriptionQueryController.AddTags("Controller");
-            subscriptionApplicationService.AddTags("Service");
-            subscriptionViewProjection.AddTags("Service");
-            subscriptionHistoryViewProjection.AddTags("Service");
-            subscriptionViewRepository.AddTags("Repository");
-            subscriptionHistoryViewRepository.AddTags("Repository");
+            membershipPurchasFragment.AddTags("Controller");
+            boxPurchaseFragment.AddTags("Controller");
+            membershipPurchasViewModelFragment.AddTags("Service");
+            boxPurchaseViewModelFragment.AddTags("Service");
+            membershipPurchaseRepository.AddTags("Repository");
+            boxPurchaseRepository.AddTags("Repository");
+            subscriptionDomainLayer.AddTags("Repository");
 
-            
-            //externalToolController.AddTags("Controller");
-            //externalQueryController.AddTags("Controller");
-            //externalApplicationService.AddTags("Service");
-            //externalToolViewProjection.AddTags("Service");
-            //externalToolHistoryViewProjection.AddTags("Service");
-            ////externalToolRespository.AddTags("Repository");
-            //externalToolViewRespository.AddTags("Repository");
-            //externalToolHistoryViewRespository.AddTags("Repository");
-                        
-            
-            //paymentCommandController.AddTags("Controller");
-           
-            //transactionCommandController.AddTags("Controller");
-            //paymentApplicationService.AddTags("Service");
-            //transactionApplicationService.AddTags("Service");
-            //paypalFacade.AddTags("Service");
+            boxFragment.AddTags("Controller");
+            sectionFragment.AddTags("Controller");
+            itemFragment.AddTags("Controller");
+            boxViewModelFragment.AddTags("Service");
+            sectionsViewModelFragment.AddTags("Service");
+            itemViewModelFragment.AddTags("Service");
+            homeBoxRepository.AddTags("Repository");
+            sharedBoxRepository.AddTags("Repository");
+            homeSectionRepository.AddTags("Repository");
+            homeItemRepository.AddTags("Repository");
+            cloudVisionViewModel.AddTags("Repository");
+            inventoryDomainLayer.AddTags("Repository");
+
 
 
             styles.Add(new ElementStyle("Controller") { Shape = Shape.Component, Background = "#FDFF8B", Icon = "" });
@@ -255,114 +266,109 @@ namespace fas_c4_model
 
 
 
-            //Component connection: Language
-            
-
-            //Component connection: Role 
-            
-            
-
-
             //Component connection: Session 
-            apiGateway.Uses(sessionQueryController, "", "Java/Spring Boot");
-            sessionQueryController.Uses(sessionViewRepository, "Usa");
-            sessionQueryController.Uses(sessionHistoryViewRepository, "Usa");
-            sessionViewProjection.Uses(sessionViewRepository, "Lee desde y escribe hasta");
-            sessionHistoryViewProjection.Uses(sessionHistoryViewRepository, "Lee desde y escribe hasta");
- 
-            apiGateway.Uses(sessionsCommandController, "", "Java/Spring Boot");
-            sessionsCommandController.Uses(sessionComandService, "Llama a los métodos del Service");
-            sessionComandService.Uses(domainLayer, "Usa");
-            /**/
+            mobileApplication.Uses(sessionFragment, "", "Kotlin");
+            mobileApplication.Uses(registerFragment, "", "Kotlin");
+            mobileApplication.Uses(verificationFragment, "", "Kotlin");
+            sessionFragment.Uses(sessionViewModelFragment, "Usa");
+            registerFragment.Uses(registerViewModelFragment, "Usa");
+            verificationFragment.Uses(verificationViewModelFragment, "Usa");
+            sessionViewModelFragment.Uses(sessionDomainLayer, "Usa");
+            registerViewModelFragment.Uses(sessionDomainLayer, "Usa");
+            verificationViewModelFragment.Uses(sessionDomainLayer, "Usa");
+            sessionViewModelFragment.Uses(sessionRepository, "Lee desde y escribe hasta");
+            registerViewModelFragment.Uses(sessionUserRepository, "Lee desde y escribe hasta");
+            sessionRepository.Uses(dbSqlite, "Lee desde y escribe hasta");
+            sessionUserRepository.Uses(firebasedb, "Lee desde y escribe hasta");
+            verificationViewModelFragment.Uses(sms, "Usa");
+
+
+            //Component connection: Profile 
+            mobileApplication.Uses(profileFragment, "", "Kotlin");
+            mobileApplication.Uses(settingsFragment, "", "Kotlin");
+            profileFragment.Uses(profileViewModelFragment, "Usa");
+            settingsFragment.Uses(settingsViewModelFragment, "Usa");
+            profileViewModelFragment.Uses(profileDomainLayer, "Usa");
+            profileViewModelFragment.Uses(profileRepository, "Lee desde y escribe hasta");
+            profileViewModelFragment.Uses(membershipRepository, "Lee desde y escribe hasta");
+            settingsViewModelFragment.Uses(profileDomainLayer, "Usa");
+            settingsViewModelFragment.Uses(settingsRepository, "Lee desde y escribe hasta");
+            settingsViewModelFragment.Uses(membershipRepository, "Lee desde y escribe hasta");
+            profileRepository.Uses(firebasedb, "Lee desde y escribe hasta");
+            membershipRepository.Uses(firebasedb, "Lee desde y escribe hasta");
+            settingsRepository.Uses(firebasedb, "Lee desde y escribe hasta");
+
 
             //Component connection: Subscription 
-            apiGateway.Uses(subscriptionQueryController, "", "Java/Spring Boot");
-            apiGateway.Uses(subscriptionCommandController, "", "Java/Spring Boot");
-            subscriptionCommandController.Uses(subscriptionApplicationService, "Usa");
-            subscriptionApplicationService.Uses(domainLayer, "Usa");
-            subscriptionQueryController.Uses(subscriptionViewRepository, "Usa");
-            subscriptionQueryController.Uses(subscriptionHistoryViewRepository, "Usa");
-            subscriptionViewProjection.Uses(subscriptionViewRepository, "Usa");
-            subscriptionHistoryViewProjection.Uses(subscriptionHistoryViewRepository, "Usa");
+            mobileApplication.Uses(membershipPurchasFragment, "", "Kotlin");
+            mobileApplication.Uses(boxPurchaseFragment, "", "Kotlin");
+            membershipPurchasFragment.Uses(membershipPurchasViewModelFragment, "Usa");
+            boxPurchaseFragment.Uses(boxPurchaseViewModelFragment, "Usa");
+            membershipPurchasViewModelFragment.Uses(subscriptionDomainLayer, "Usa");
+            membershipPurchasViewModelFragment.Uses(membershipPurchaseRepository, "Lee desde y escribe hasta");
+            boxPurchaseViewModelFragment.Uses(subscriptionDomainLayer, "Usa");
+            boxPurchaseViewModelFragment.Uses(boxPurchaseRepository, "Lee desde y escribe hasta");
+
+            membershipPurchasViewModelFragment.Uses(paypal, "Usa");
+            boxPurchaseViewModelFragment.Uses(paypal, "Usa");
+            membershipPurchaseRepository.Uses(firebasedb, "Lee desde y escribe hasta");
+            boxPurchaseRepository.Uses(firebasedb, "Lee desde y escribe hasta");
 
 
-            //Component connection: Topic Of Interest 
-            
-
-            //Component connection: User 
-           
-
-
-            //Component connection: External
-            //Google Calendar
-            //apiGateway.Uses(externalQueryController, "", "Java/Spring Boot");
-            ////externalQueryController.Uses(externalToolRespository, "Lee desde y escribe hasta");
-            //externalQueryController.Uses(externalToolViewRespository, "Lee desde y escribe hasta");
-            //externalQueryController.Uses(externalToolHistoryViewRespository, "Lee desde y escribe hasta");
-            //externalToolViewProjection.Uses(externalToolViewRespository, "Lee desde y escribe hasta");
-            //externalToolHistoryViewProjection.Uses(externalToolHistoryViewRespository, "Lee desde y escribe hasta");
-            ////externalToolRespository.Uses(externalToolContextDatabase, "Lee desde y escribe hasta");
-
-
-            ////sms
-            //apiGateway.Uses(externalToolController, "", "Java/Spring Boot");
-            //externalToolController.Uses(externalApplicationService, "Llama a los métodos del Service");
-            //externalApplicationService.Uses(domainLayer, "Usa");
-            //externalApplicationService.Uses(sms, "Usa");
-           
-
-            ////Component connection: Payment
-            //apiGateway.Uses(paymentCommandController, "", "Java/Spring Boot");
-            //apiGateway.Uses(transactionCommandController, "", "Java/Spring Boot");
-            //transactionCommandController.Uses(transactionApplicationService, "", "Llama a los métodos del Service");
-      
-            //paymentCommandController.Uses(paymentApplicationService, "", "Llama a los métodos del Service");
-            //paymentApplicationService.Uses(paypalFacade, "", "Usa");
-            //transactionApplicationService.Uses(domainLayer, "", "Usa");
-            //paymentApplicationService.Uses(domainLayer, "", "Usa");
-            //paypalFacade.Uses(paypal, "", "Usa");
+            //Component connection: Inventory 
+            mobileApplication.Uses(boxFragment, "", "Kotlin");
+            mobileApplication.Uses(sectionFragment, "", "Kotlin");
+            mobileApplication.Uses(itemFragment, "", "Kotlin");
+            boxFragment.Uses(boxViewModelFragment, "Usa");
+            sectionFragment.Uses(sectionsViewModelFragment, "Usa");
+            itemFragment.Uses(itemViewModelFragment, "Usa");
+            boxViewModelFragment.Uses(inventoryDomainLayer, "Usa");
+            boxViewModelFragment.Uses(homeBoxRepository, "Lee desde y escribe hasta");
+            boxViewModelFragment.Uses(sharedBoxRepository, "Lee desde y escribe hasta");
+            sectionsViewModelFragment.Uses(inventoryDomainLayer, "Usa");
+            sectionsViewModelFragment.Uses(homeSectionRepository, "Lee desde y escribe hasta");
+            itemViewModelFragment.Uses(inventoryDomainLayer, "Usa");
+            itemViewModelFragment.Uses(cloudVisionViewModel, "Usa");
+            itemViewModelFragment.Uses(homeItemRepository, "Lee desde y escribe hasta");
+            cloudVisionViewModel.Uses(cloudVisionApi, "Usa");
+            homeBoxRepository.Uses(firebasedb, "Lee desde y escribe hasta");
+            sharedBoxRepository.Uses(firebasedb, "Lee desde y escribe hasta");
+            homeSectionRepository.Uses(firebasedb, "Lee desde y escribe hasta");
+            homeItemRepository.Uses(firebasedb, "Lee desde y escribe hasta");
 
 
 
             // View - Components Diagram - Session Bounded Context
             ComponentView sessionComponentView = viewSet.CreateComponentView(sessionContext, "Session Bounded Context's Components", "Component Diagram");
-            sessionComponentView.PaperSize = PaperSize.A4_Landscape;
+            sessionComponentView.PaperSize = PaperSize.A3_Landscape;
             sessionComponentView.Add(mobileApplication);
-            sessionComponentView.Add(apiGateway);
-
+            sessionComponentView.Add(dbSqlite);
+            sessionComponentView.Add(firebasedb);
+            sessionComponentView.Add(sms);
             sessionComponentView.AddAllComponents();
 
-            // View - Components Diagram - User Bounded Context
-            
+            // View - Components Diagram - Profile Bounded Context
+            ComponentView profileComponentView = viewSet.CreateComponentView(profileContext, "Profile Bounded Context's Components", "Component Diagram");
+            profileComponentView.PaperSize = PaperSize.A4_Landscape;
+            profileComponentView.Add(mobileApplication);
+            profileComponentView.Add(firebasedb);
+            profileComponentView.AddAllComponents();
 
             // View - Components Diagram - Subscription Bounded Context
             ComponentView subscriptionComponentView = viewSet.CreateComponentView(subscriptionContext, "Subscription Bounded Context's Components", "Component Diagram");
             subscriptionComponentView.PaperSize = PaperSize.A4_Landscape;
             subscriptionComponentView.Add(mobileApplication);
-            subscriptionComponentView.Add(apiGateway);
-            subscriptionComponentView.Add(domainLayer);
+            subscriptionComponentView.Add(paypal);
+            subscriptionComponentView.Add(firebasedb);
             subscriptionComponentView.AddAllComponents();
 
-            //// View - Components Diagram - External Bounded Context
-            //ComponentView externalToolsComponentView = viewSet.CreateComponentView(externalToolsContext, "External Tools Bounded Context's Components", "Component Diagram");
-            //externalToolsComponentView.PaperSize = PaperSize.A4_Landscape;
-            //externalToolsComponentView.Add(mobileApplication);
-            //externalToolsComponentView.Add(apiGateway);
-           
-            //externalToolsComponentView.Add(sms);
-            //externalToolsComponentView.Add(domainLayer);
-            //externalToolsComponentView.AddAllComponents();
-
-            //// View - Components Diagram - External Payment Context
-            //ComponentView paymentComponentView = viewSet.CreateComponentView(paymentContext, "Payment Bounded Context's Components", "Component Diagram");
-            //paymentComponentView.Add(mobileApplication);
-            //paymentComponentView.PaperSize = PaperSize.A3_Landscape;
-            //paymentComponentView.Add(apiGateway);
-            //paymentComponentView.Add(paymentCommandController);
-            //paymentComponentView.Add(paypalFacade);
-            //paymentComponentView.Add(paypal);
-            //paymentComponentView.Add(domainLayer);
-            //paymentComponentView.AddAllComponents();
+            // View - Components Diagram - Profile Bounded Context
+            ComponentView inventoryComponentView = viewSet.CreateComponentView(inventoryContext, "Inventory Bounded Context's Components", "Component Diagram");
+            inventoryComponentView.PaperSize = PaperSize.A3_Landscape;
+            inventoryComponentView.Add(mobileApplication);
+            inventoryComponentView.Add(firebasedb);
+            inventoryComponentView.Add(cloudVisionApi);
+            inventoryComponentView.AddAllComponents();
 
 
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
